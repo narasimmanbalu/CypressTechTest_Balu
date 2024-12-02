@@ -1,0 +1,61 @@
+{
+  "name": "techtest",
+  "version": "1.0.0",
+  "description": "MagentoUIpage Application",
+  "main": "index.js",
+  "scripts": {
+    "cypress:open": "cypress open",
+    "cypress:parallel": "npx cypress-parallel",
+    "test": "cypress run",
+    "tag:smoke": "cypress run --env tags='@Test'",
+    "lint:eslint": "eslint .",
+    "lint:tsc": "tsc --noEmit",
+    "lint": "npm run lint:eslint; npm run lint:tsc",
+    "lint:fix": "npm run lint:eslint -- --fix",
+
+    "cy:run": "cypress run",
+    "cy:parallel": "npx cypress run --record --key=abc123 --parallel"
+  },
+  
+  "keywords": [
+    "BDD",
+    "cypress",
+    "cucumber",
+    "typescript"
+  ],
+  "author": "Senthil",
+  "dependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^15.1.5",
+    "cypress-localstorage-commands": "^2.2.5",
+    "cypress-parallel": "^0.14.0"
+  },
+  
+  "devDependencies": {
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.0",
+    "@cypress/xpath": "^2.0.3",
+    "@types/cypress": "^1.1.3",
+    "@types/node": "^18.15.7",
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "@typescript-eslint/parser": "^5.56.0",
+    "cypress": "^13.7.1",
+    "cypress-cucumber-preprocessor": "^4.3.1",
+    "eslint": "^8.36.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsonc": "^2.7.0",
+    "eslint-plugin-n": "^15.6.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.4.3"
+  },
+  "cypress-cucumber-preprocessor": {
+    "nonGlobalStepDefinitions": false,
+    "stepDefinitions": [
+      "cypress/e2e/steps/**/*.ts"
+    ],
+    "html": {
+      "enabled": true
+    }
+  }
+}
