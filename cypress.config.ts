@@ -22,7 +22,7 @@ async function setupNodeEvents(
 export default defineConfig({
   e2e: {
     baseUrl: 'https://thevegboxcompany.co.uk/',
-    specPattern: '**/*.feature',
+    "specPattern": "cypress/e2e/**/*.feature",
     setupNodeEvents,
   },
 })

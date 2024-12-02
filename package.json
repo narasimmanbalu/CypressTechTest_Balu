@@ -12,11 +12,9 @@
     "lint:tsc": "tsc --noEmit",
     "lint": "npm run lint:eslint; npm run lint:tsc",
     "lint:fix": "npm run lint:eslint -- --fix",
-
     "cy:run": "cypress run",
-    "cy:parallel": "npx cypress run --record --key=abc123 --parallel"
+    "cy:parallel": "cypress-parallel -s cy:run -t 2 -d 'cypress/e2e/**/*.feature' -a '\"--config baseUrl=http://localhost:3000\"'"
   },
-  
   "keywords": [
     "BDD",
     "cypress",
@@ -26,10 +24,9 @@
   "author": "Senthil",
   "dependencies": {
     "@badeball/cypress-cucumber-preprocessor": "^15.1.5",
-    "cypress-localstorage-commands": "^2.2.5",
-    "cypress-parallel": "^0.14.0"
+    "cypress": "^12.17.4",
+    "cypress-localstorage-commands": "^2.2.5"
   },
-  
   "devDependencies": {
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.0",
     "@cypress/xpath": "^2.0.3",
@@ -37,8 +34,9 @@
     "@types/node": "^18.15.7",
     "@typescript-eslint/eslint-plugin": "^5.56.0",
     "@typescript-eslint/parser": "^5.56.0",
-    "cypress": "^13.7.1",
     "cypress-cucumber-preprocessor": "^4.3.1",
+    "cypress-multi-reporters": "^1.5.0",
+    "cypress-parallel": "^0.14.0",
     "eslint": "^8.36.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.27.5",
