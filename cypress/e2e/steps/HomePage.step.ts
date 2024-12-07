@@ -10,13 +10,15 @@ Then("validate {string} result", function (expected) {
   homepage.validateLogin(expected)
 })
 
-
 Then("the user should see the home page", function (name) {
   homepage.verifyUserHomePage(name)
   homepage.saveState()
 })
 
+Then("the user search for the item {string} and add to the cart", function (itemname) {
+  homepage.addItemToTheCart(itemname)
+})
 
-When("the user adds the items to the cart", function () {
-  homepage.addItemToTheCart()
+Then("validate the number of item in the cart should be {string}", function (cartcount) {
+  homepage.validateItemCount(cartcount)
 })

@@ -22,18 +22,19 @@ Then('confirm {string} label on the login page', (title: string) => {
   loginPage.validateTitle(title)
 })
 
-Given('the user is on the {string} page', (title: string) => {
+When('the user is on the {string} page', (title: string) => {
   loginPage.validateTitle(title)
 })
 
-When('user enters {string} and {string}', function (username, password) {
+Then('user enters {string} and {string}', function (username, password) {
   loginPage.enterUserNameAndPassword(username, password)
 })
 
-When('user reads login details from data table', function () {
+Then('user reads login details from data table', function () {
   loginPage.dataTableLoginDetails()
 })
 
-When('the user clicks on login button', function () {
+Then('the user clicks on login button', function () {
   loginPage.clickOnLoginButton()
 })
+

@@ -21,7 +21,7 @@
     "cucumber",
     "typescript"
   ],
-  "author": "Senthil",
+  "author": "Balu",
   "dependencies": {
     "@badeball/cypress-cucumber-preprocessor": "^15.1.5",
     "cypress": "^12.17.4",
