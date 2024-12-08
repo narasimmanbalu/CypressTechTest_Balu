@@ -21,7 +21,9 @@ async function setupNodeEvents(
 
 export default defineConfig({
   e2e: {
-    baseUrl: 'https://thevegboxcompany.co.uk/',
+    env: {
+      BEARER_TOKEN: "65f50188dec1fd564a5e7e403dd3b76896d80c573fabc222f7fbb4cda3d1daee"
+    },
     "specPattern": "cypress/e2e/**/*.feature",
     setupNodeEvents,
   },

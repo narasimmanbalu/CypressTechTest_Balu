@@ -1,51 +1,76 @@
 
 import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 let getUser: any
-let base_url = 'https://gorest.co.in/public/v2/users/'
+const token = Cypress.env('BEARER_TOKEN');
 
 
 export default class ApiTestCode {
 
-    validateGetResponse() {
+    sendGetRequest(url) {
         cy.request({
             method: 'GET',
-            url: base_url,
+            url: url,
             headers: {
-                'authorization': "Bearer 65f50188dec1fd564a5e7e403dd3b76896d80c573fabc222f7fbb4cda3d1daee"
-            }
-        }).then((res) => {
-            expect(res.status).to.eq(200)
-        })
+                authorization: `Bearer ${token}`,
+            },
+            failOnStatusCode: false
+        }).then((response) => {
+            cy.wrap(response).as('apiResponse');
+        });
     }
 
-    validatePostResponse() {
+    validateGetResponse(statusCode) {
+        cy.get('@apiResponse').then((response) => {
+            // Cast the response to the correct type
+            const typedResponse = response as unknown as Cypress.Response<any>;
+            const expectedResponse = parseInt(statusCode, 10);
+            expect(typedResponse.status).to.eq(expectedResponse);
+        });
+    }
+
+    sendPostRequest(url) {
         const timestamp = Date.now();
-        // Define URL and payload data
-        const apiUrl = 'https://gorest.co.in/public/v2/users/';
         const payload = {
             name: 'Username',
-            email: 'email'+timestamp+'@yopmail.com',
+            email: 'email' + timestamp + '@yopmail.com',
             gender: 'female',
             status: 'active',
         };
-    
-        // Perform API request to update data
         cy.request({
             method: 'POST',
-            url: apiUrl,
+            url: url,
             body: payload,
             headers: {
                 'Content-Type': 'application/json',
                 'accept': 'application/json',
-                'authorization': "Bearer 65f50188dec1fd564a5e7e403dd3b76896d80c573fabc222f7fbb4cda3d1daee"
+                authorization: `Bearer ${token}`
+            },
+            failOnStatusCode: false
+        }).then((response) => {
+            cy.wrap(response).as('apiResponse');
+        });
+    }
+
+    validateValidPostResponse(statusCode) {
+        cy.get('@apiResponse').then((response) => {
+            // Cast the response to the correct type
+            const actualResponse = response as unknown as Cypress.Response<any>;
+            const expectedResponse = parseInt(statusCode, 10);
+            if (actualResponse.status == expectedResponse) {
+                expect(actualResponse.body).to.have.property("name", "Username")
             }
-        }).then(function(response) {
-            if (response.status == 201) {
-                expect(response.body).to.have.property("name","Username")
-            }
-            else{
-    
-                throw new Error(`Failed to update data. Status code: ${response.status}`);
+            else {
+                throw new Error(`Failed to update data. Status code: ${actualResponse.status}`);
             }
         })
-    }}
+    }
+
+    validateInvalidPostResponse(statusCode) {
+        cy.get('@apiResponse').then((response) => {
+            // Cast the response to the correct type
+            const actualResponse = response as unknown as Cypress.Response<any>;
+            const expectedResponse = parseInt(statusCode, 10);
+            expect(actualResponse.status == expectedResponse)
+        });
+    }
+}

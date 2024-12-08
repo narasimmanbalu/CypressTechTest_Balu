@@ -4,7 +4,7 @@ Feature: Login to thevegboxcompany website and add item to cart
    Background:
       Given user navigate to login page
 
-   @login @ignore
+   @login
    Scenario Outline: Verify Valid and invalid login
       When the user is on the 'Login' page
       Then user enters '<username>' and '<password>'
